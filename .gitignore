@@ -1,0 +1,6 @@
+# Python folders
+virtualenv
+__pycache__
+
+# Django
+db.sqlite3
