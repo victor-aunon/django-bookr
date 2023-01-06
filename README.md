@@ -6,3 +6,5 @@
   - Create a data model in `<app-name>\models.py`
   - Create an endpoint as a function in `<app-name>\views.py`
   - Create a template as an HTML file in `<app-name>\templates\<template>.html`
+6. Create new DB migrations with `py <name>\manage.py makemigrations <app-name>`
+7. Perform DB migrations with `py <name>\manage.py migrate`
