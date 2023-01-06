@@ -8,3 +8,8 @@
   - Create a template as an HTML file in `<app-name>\templates\<template>.html`
 6. Create new DB migrations with `py <name>\manage.py makemigrations <app-name>`
 7. Perform DB migrations with `py <name>\manage.py migrate`
+8. Using custom commands:
+  - Create a python file within `<app-name>\management\commands`
+  - Include a class *Command* that extends *BaseCommand*
+  - Include the logic of the command in a class method called *handle*
+  - Run the custom command with `py <name>\manage.py <command> <args>`
