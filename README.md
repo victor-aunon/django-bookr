@@ -15,3 +15,12 @@
   - Run the custom command with `py <name>\manage.py <command> <args>`
 9. Create a superuser with `py <name>\manage.py createsuperuser`
 10. Register models on admin site by including `admin.site.register(<model>)` in `<app-name>\admin.py` file
+11. Serve static files using the `{% load static %}` instruction at the beginning of the template file
+12. Set static files directory in `<name>\settings.py` by including:
+```
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+```
+13. Invalidate caches (hash file names) with the setting:
+```
+ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+```
