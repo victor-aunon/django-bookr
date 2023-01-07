@@ -13,3 +13,5 @@
   - Include a class *Command* that extends *BaseCommand*
   - Include the logic of the command in a class method called *handle*
   - Run the custom command with `py <name>\manage.py <command> <args>`
+9. Create a superuser with `py <name>\manage.py createsuperuser`
+10. Register models on admin site by including `admin.site.register(<model>)` in `<app-name>\admin.py` file
