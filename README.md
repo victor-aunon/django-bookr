@@ -24,3 +24,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 ```
  STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 ```
+14. Add `{% csrf_token %}` to a form template that uses a POST method to avoid CSRF attacks

@@ -1,12 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search results: {{ search_text }}</title>
-  </head>
-  <body>
-    <h1>Search results for <em>{{ search_text }}</em></h1>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+  {% if form.is_valid and search_text %}
+    Search results for "{{ search_text }}"
+  {% else %}
+    Book search
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <h2>Search for books</h2>
+  <form>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <br />
+  {% if form.is_valid and search_text %}
+    <h3>Search results for <em>{{ search_text }}</em></h3>
+    <ul class="list-group">
+      {% for book in books %}
+        <li class="list-group-item">
+          <span class="text-info">Title: </span>
+          <a href="{% url 'book_details' book.id %}">{{ book }}</a>
+          <br />
+          <span class="text-info">Contributors: </span>
+          {% for contributor in book.contributors.all %}
+            {{ contributor.first_name }} {{ contributor.last_name }}
+            {% if not forloop.last %}
+              ,
+            {% endif %}
+          {% endfor %}
+        </li>
+        {% empty %}
+          <li class="list-group-item">No results found.</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
