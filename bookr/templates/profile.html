@@ -4,9 +4,12 @@
   Bookr
 {% endblock %}
 
+{% block heading %}Profile{% endblock %}
+
 {% block content %}
-  <h2>Profile</h2>
-  <div>
+<div class="flexrow">
+  <div class="infocell">
+    <p>Profile</p>
     <p>
       Username: {{ request.user.username }}
       <br />
@@ -19,4 +22,16 @@
       Last login: {{ request.user.last_login }}
     </p>
   </div>
+  <div class="infocell">
+    <p>Viewed Books</p>
+    <p>
+      {% for book_id, book_title in request.session.viewed_books %}
+        <a href="/books/{{ book_id }}">{{ book_title }}</a>
+        <br />
+      {% empty %}
+        No recently viewed books found.
+      {% endfor %}
+    </p>
+  </div>
+</div>
 {% endblock %}

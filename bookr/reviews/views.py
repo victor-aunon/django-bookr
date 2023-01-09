@@ -74,6 +74,19 @@ def book_details(request, id):
     else:
         context = {"book": book, "book_rating": None, "reviews": None}
 
+    if request.user.is_authenticated:
+        max_viewed_books_length = 10
+        viewed_books = request.session.get("viewed_books", [])
+        viewed_book = [book.id, book.title]
+        # Remove the book if it is already in viewed_books list
+        if viewed_book in viewed_books:
+            viewed_books.pop(viewed_books.index(viewed_book))
+        # Add the book to the beginning of viewed_books list
+        viewed_books.insert(0, viewed_book)
+        # Select the last 10 books viewed
+        viewed_books = viewed_books[:max_viewed_books_length]
+        request.session["viewed_books"] = viewed_books
+
     return render(request, "reviews/book_details.html", context)
 
 
