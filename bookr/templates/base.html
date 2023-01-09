@@ -22,18 +22,14 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Source+Sans+Pro&display=swap"
     />
-    <title>
-      {% block title %}
-        Bookr
-      {% endblock %}
-    </title>
+    <title>{% block title %} Bookr {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'main.css' %}" />
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
       <a class="navbar-brand" href="/">
         {% block brand %}
-          <img src="{% static 'logo.png' %}" alt="Bookr logo" />
+        <img src="{% static 'logo.png' %}" alt="Bookr logo" />
         {% endblock %}
       </a>
       <button
@@ -54,9 +50,15 @@
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
+          {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="#">Logout</a>
+            <a class="nav-link" href="/accounts/logout">Logout</a>
           </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/login">Login</a>
+          </li>
+          {% endif %}
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{% url 'book_search' %}">
           <input
@@ -72,15 +74,20 @@
             Search
           </button>
         </form>
+        {% if user.is_authenticated %}
+          <a href="/accounts/profile" class="nav-link">{{ user.username }}</a>
+        {% endif %}
       </div>
     </nav>
     <main class="p-4 container-fluid">
       {% for message in messages %}
-        <div class="alert alert-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %}" role="alert">
-          {{ message }}
-        </div>
-      {% endfor %}
-      {% block content %}
+      <div
+        class="alert alert-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %}"
+        role="alert"
+      >
+        {{ message }}
+      </div>
+      {% endfor %} {% block content %}
       <h1>Welcome to Bookr!</h1>
       {% endblock %}
     </main>

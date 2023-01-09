@@ -1,10 +1,17 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from .models import Book, Contributor, Publisher, Review
 from .utils import average_rating
 from .forms import SearchForm, PublisherForm, ReviewForm
+
+
+# Validators
+def is_staff_user(user):
+    return user.is_staff
 
 
 def index(request):
@@ -70,6 +77,8 @@ def book_details(request, id):
     return render(request, "reviews/book_details.html", context)
 
 
+# @permission_required("edit_publisher")
+@user_passes_test(is_staff_user)
 def publisher_edit(request, id=None):
     if id is not None:
         publisher = get_object_or_404(Publisher, id=id)
@@ -102,11 +111,15 @@ def publisher_edit(request, id=None):
     )
 
 
+@login_required
 def review_edit(request, book_id, review_id=None):
     book = get_object_or_404(Book, id=book_id)
 
     if review_id is not None:
-        review = get_object_or_404(Review, id=review_id)
+        review = get_object_or_404(Review, id=review_id, book_id=book_id)
+        user = request.user
+        if not user.is_staff and review.creator.id != user.id:
+            raise PermissionDenied
     else:
         review = None
 

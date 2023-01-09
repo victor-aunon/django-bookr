@@ -26,3 +26,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 ```
 14. Add `{% csrf_token %}` to a form template that uses a POST method to avoid CSRF attacks
 15. Create form classes by extending *ModelForm* to build a form from a model
+16. Store uploaded files in `MEDIA_ROOT`. Serve media from `MEDIA_URL`
