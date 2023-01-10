@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, api_views
 
 urlpatterns = [
     path("", views.index),
@@ -14,7 +14,6 @@ urlpatterns = [
         views.review_edit,
         name="review_edit",
     ),
-    path(
-        "books/<int:book_id>/reviews/new/", views.review_edit, name="review_create"
-    ),
+    path("books/<int:book_id>/reviews/new/", views.review_edit, name="review_create"),
+    path("api/all_books", api_views.all_books, name="all_books"),
 ]
