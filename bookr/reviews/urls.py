@@ -1,6 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from . import views, api_views
+
+
+router = DefaultRouter()
+router.register("books", api_views.BookViewSet)
+router.register("reviews", api_views.ReviewViewSet)
 
 urlpatterns = [
     path("", views.index),
@@ -16,10 +22,11 @@ urlpatterns = [
     ),
     path("books/<int:book_id>/reviews/new/", views.review_edit, name="review_create"),
     # path("api/all_books", api_views.all_books, name="all_books"),
-    path("api/all_books", api_views.AllBooks.as_view(), name="all_books"),
-    path(
-        "api/all_contributors",
-        api_views.AllContributors.as_view(),
-        name="all_contributors",
-    ),
+    # path("api/all_books", api_views.AllBooks.as_view(), name="all_books"),
+    # path(
+    #     "api/all_contributors",
+    #     api_views.AllContributors.as_view(),
+    #     name="all_contributors",
+    # ),
+    path("api/", include((router.urls, "api")))
 ]
