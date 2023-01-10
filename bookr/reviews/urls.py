@@ -28,5 +28,6 @@ urlpatterns = [
     #     api_views.AllContributors.as_view(),
     #     name="all_contributors",
     # ),
-    path("api/", include((router.urls, "api")))
+    path("api/", include((router.urls, "api"))),
+    path("api/login", api_views.Login.as_view(), name="login")
 ]
