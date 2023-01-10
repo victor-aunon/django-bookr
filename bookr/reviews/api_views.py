@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Book
-from .serializers import BookSerializer
+from .models import Book, Contributor
+from .serializers import BookSerializer, ContributorSerializer
 
 
 # @api_view()
@@ -12,6 +12,12 @@ from .serializers import BookSerializer
 
 #     return Response(book_serializer.data)
 
+
 class AllBooks(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+
+class AllContributors(generics.ListAPIView):
+    queryset = Contributor.objects.all()
+    serializer_class = ContributorSerializer

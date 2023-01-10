@@ -42,6 +42,9 @@ class Contributor(models.Model):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
+    def number_contributions(self):
+        return self.bookcontributor_set.count()
+
 
 class BookContributor(models.Model):
     class ContributionRole(models.TextChoices):
