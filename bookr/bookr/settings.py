@@ -43,6 +43,7 @@ class Development(Configuration):
         "django.contrib.staticfiles",
         "rest_framework",
         "rest_framework.authtoken",
+        "debug_toolbar",
         "reviews.apps.ReviewsConfig",
     ]
 
@@ -54,7 +55,11 @@ class Development(Configuration):
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
+
+    # Django toolbar
+    INTERNAL_IPS = ["127.0.0.1"]
 
     ROOT_URLCONF = "bookr.urls"
 
