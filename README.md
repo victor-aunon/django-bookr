@@ -31,3 +31,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 18. Add `rest_framework`to `INSTALLED_APPS` in `<name>\settings.py` file
 19. Create the serializers for each model
 20. Write endpoints in the `api_views.py` file
+21. To have different Django configurations install `django-configurations` and create different classes in `<name>\settings.py` extending *Configuration* class
+22. Edit your `manage.py` file to load this configurations:
+```
+os.environ.setdefault('DJANGO_CONFIGURATION', "Development")
+    try:
+        from configurations.management import execute_from_command_line
+...
+```
